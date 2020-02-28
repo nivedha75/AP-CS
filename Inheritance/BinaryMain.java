@@ -1,4 +1,5 @@
 package Inheritance;
+// we will assume binary numbers are always 8 digits or 8 bit binary numbers.
 
 import java.util.ArrayList;
 import java.util.Arrays;
