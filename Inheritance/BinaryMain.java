@@ -1,6 +1,4 @@
 package Inheritance;
-// we will assume binary numbers are always 8 digits or 8 bit binary numbers.
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.lang.Integer;
@@ -61,6 +59,40 @@ class Binary{
         }
         return this;
     }
+    public String toString(){
+        String stringBinary = "";
+        for(int i = 0; i < digits.length; i++){
+            stringBinary += digits[i];
+        }
+        return stringBinary;
+    }
+    public int twosComplement() {
+    	int sum = 0;
+    	for(int i = 7; i >= 0; i--) {
+    		if(i == 7)
+    			sum += Math.pow(2, i)*digits[7-i]*(-1);
+    		else
+    			sum += Math.pow(2, i)*digits[7-i];
+    	}
+    	return sum;
+    }
+    public double doubleBinary() {
+    	int mantissa = 0;
+    	int exponent = 0;
+    	for(int i = 0; i < 4; i++) {
+    		if(i == 3)
+    			exponent += Math.pow(2, i)*digits[3-i]*(-1);
+    		else
+    			exponent += Math.pow(2, i)*digits[3-i];
+    	}
+    	for(int i = 0; i < 4; i++) {
+    		if(i == 3)
+    			mantissa += Math.pow(2, i)*digits[7-i]*(-1);
+    		else
+    			mantissa += Math.pow(2, i)*digits[7-i];
+    	}
+    	return mantissa*Math.pow(2, exponent);
+    }
 }
 
 
@@ -76,5 +108,16 @@ public class BinaryMain {
 		Binary d = new Binary("00000001");
 		System.out.println(Arrays.toString(d.intToBinary(142).getDigits()));
 		System.out.println(d.intToBinary(142).intValue());//142
+		System.out.format("%-30s%-30s%-30s%-30s", "Binary", "int value", "Twos complement", "Double binary");
+		String binaryStr = "";
+		for(int i = 0; i <= 255; i++) {
+			Binary binary = new Binary("00000000");
+			binary = binary.intToBinary(i);
+	        System.out.println();
+	        System.out.format("%-30s%-30s%-30s%-30s", binary.toString(), binary.intValue(), binary.twosComplement(), binary.doubleBinary());
+		}
 	}
 }
+
+
+
